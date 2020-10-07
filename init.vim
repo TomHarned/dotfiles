@@ -1,54 +1,78 @@
-call plug#begin()
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'jpalardy/vim-slime'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'roxma/nvim-completion-manager'
-Plug 'ycm-core/YouCompleteMe' 
-" Plug 'dag/vim2hs' 
-" Plug 'SirVer/ultisnips'
-" Plug 'itchyny/vim-haskell-indent'
-" Plug 'honza/vim-snippets'
-Plug 'neovimhaskell/haskell-vim' 
-" Plug 'enomsg/vim-haskellConcealPlust'
-" Plug 'alx741/vim-hindent'
-Plug 'sheerun/vim-polyglot'
-Plug 'morhetz/gruvbox'
-Plug 'tomasr/molokai'
-Plug 'sickill/vim-monokai'
-call plug#end()
-
-let g:deoplete#enable_at_startup = 1
-syntax on
-
-filetype plugin indent on
+" Settings
+filetype off                  " required
+set backspace=indent,eol,start  " more powerful backspacing
+set number
 set tabstop=4
+filetype indent on
 set shiftwidth=4
 set expandtab
-
+set smarttab
+set ruler
+set showcmd
 set background=dark
-let g:airline_theme='one'
+set previewheight=24
+
+" Plugins
+call plug#begin()
+Plug 'scrooloose/nerdtree'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'neomake/neomake'
+Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+Plug 'plasticboy/vim-markdown'
+Plug 'jpalardy/vim-slime'
+Plug 'ervandew/supertab'
+Plug 'elzr/vim-json'
+Plug 'sheerun/vim-polyglot'
+Plug 'davidhalter/jedi-vim'
+Plug 'tpope/vim-capslock'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-surround'
+Plug 'venantius/vim-cljfmt'
+Plug 'tpope/vim-salve'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fireplace'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/paredit.vim'
+" Plug 'python-mode/python-mode'
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'vim-syntastic/syntastic'
+call plug#end()
+
+let g:jedi#force_py_version=3
+" Enable Vim Slime with tmux
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+let g:ycm_autoclose_preview_window_after_completion = 0
+" let g:neomake_python_enabled_makers = ['pylint']
+" call neomake#configure#automake('nrwi', 500)
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pylint']
+" Configure shortcut for nerdtree toggle
+nmap <C-n> :NERDTreeToggle<CR>
+
+" Appearance
+syntax enable
+syntax on
+set noswapfile
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-set termguicolors
-colorscheme gruvbox
-set number
-
-let g:slime_target="tmux"
-
-let python_highlight_all=0
-
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-
-" Turn these off if they fuck up python indents
-let g:haskell_indent_disable = 1
-" set autoindent
-" set nocindent
-
-set shortmess=a
-set cmdheight=2
+" set background=dark
+" colorscheme gruvbox
+autocmd VimEnter * colorscheme molokai
+" let g:python_space_error_highlight=0
+" let g:toggleHighlightWhitespace=0
+" let g:go_highlight_trailing_whitespace_error=0
+" let g:pymode_syntax_space_errors=0
+"
+"make kj do esc"
+" inoremap kj <Esc>
+" KJ
