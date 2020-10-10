@@ -10,7 +10,7 @@ set smarttab
 set ruler
 set showcmd
 set background=dark
-set previewheight=24
+set previewheight=22
 
 " Plugins
 call plug#begin()
@@ -27,6 +27,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'davidhalter/jedi-vim'
 Plug 'tpope/vim-capslock'
 Plug 'tpope/vim-fireplace'
+Plug 'Olical/conjure', { 'tag': 'v4.3.1' }
 Plug 'tpope/vim-surround'
 Plug 'venantius/vim-cljfmt'
 Plug 'tpope/vim-salve'
@@ -36,6 +37,7 @@ Plug 'tpope/vim-fireplace'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/paredit.vim'
+Plug 'w0rp/ale'
 " Plug 'python-mode/python-mode'
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'vim-syntastic/syntastic'
@@ -57,6 +59,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pylint']
+
+let g:ale_linters = {
+            \ 'clojure': ['cli-kondo', 'joker']
+            \}
 " Configure shortcut for nerdtree toggle
 nmap <C-n> :NERDTreeToggle<CR>
 

@@ -1,0 +1,26 @@
+
+* Set up qmk on linux
+
+* Use qmk config to set default keyboard and layout
+
+# Notes
+* "Keyboards" refer to the physical device, the actual physical layout of the keys, e.g. ergodox, dactyl manuform, iris, corne, etc.
+
+* "Key map" refers to which letters and symbols are mapped to which keys. 
+
+* Go to the qmk configurator online and set up your keymap the way you want.
+
+* Download the json file corresponding to your keymap, e.g. handwired/dactyl_manuform/5x6
+
+* Move the json file to the folder of the keyboard you're using in the qmk_firmware directory, e.g. handwired/dactyl_manuform/5x6
+
+
+* Navigate to the top directory of qmk_firmware
+
+* run "qmk compile <path to json file>"
+
+* copy the hex file over to the keyboards directory, e.g. handwired/dactyl_manuform/5x5/  (Not sure if this step is necessary)
+
+* Run the following command:
+
+make handwired/dactyl_manuform/5x6:atreus44_rev4:flash
