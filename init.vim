@@ -1,36 +1,101 @@
-" Settings
-filetype off                  " required
-set backspace=indent,eol,start  " more powerful backspacing
-set number
-set tabstop=4
-filetype indent on
-set shiftwidth=4
-set expandtab
-set smarttab
-set ruler
-set showcmd
-set background=dark
-set previewheight=22
+
+"------------------------------------------------------------
+" Features {{{1
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made, as well as sanely reset options when re-sourcing .vimrc
+set nocompatible
+
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+filetype indent plugin on
+
+" Enable syntax highlighting
+syntax on
+
+"------------------------------------------------------------
+" Must have options {{{1
+"
+
+" set this so you don't have to save buffers to change them
 set hidden
+
+
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter> to continue"
+set cmdheight=2
+
+set previewheight=4
+
+"------------------------------------------------------------
+" Indentation options {{{1
+"
+" Indentation settings according to personal preference.
+
+" Indentation settings for using 4 spaces instead of tabs.
+" Do not change 'tabstop' from its default value of 8 with this setup.
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+"------------------------------------------------------------
+" Usability options {{{1
+"
+" These are options that users frequently set in their .vimrc. Some of them
+" change Vim's behaviour in ways which deviate from the true Vi way, but
+" which are considered to add usability. Which, if any, of these options to
+" use is very much a personal preference, but they are harmless.
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
+
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+
+" Stop certain movements from always going to the first character of a line.
+" While this behaviour deviates from that of Vi, it does what most users
+" coming from other editors would expect.
+set nostartofline
+
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
+
+" Always display the status line, even if only one window is displayed
+set laststatus=2
+
+" Instead of failing a command because of unsaved changes, instead raise a
+" dialogue asking if you wish to save changed files.
+set confirm
+
+set noswapfile
+
+"------------------------------------------------------------
+" Mappings {{{1
+"
+" Useful mappings
+" TODO: map space in place of CTRL-W
+" 
+
 
 " Plugins
 call plug#begin()
-Plug 'scrooloose/nerdtree'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'neomake/neomake'
-Plug 'tomasr/molokai'
-Plug 'morhetz/gruvbox'
-Plug 'jnurmine/Zenburn'
-Plug 'sjl/badwolf'
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'sheerun/vim-polyglot'
+Plug 'elzr/vim-json'
 Plug 'plasticboy/vim-markdown'
 Plug 'jpalardy/vim-slime'
 Plug 'ervandew/supertab'
-Plug 'elzr/vim-json'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'sheerun/vim-polyglot'
-Plug 'davidhalter/jedi-vim'
-Plug 'tpope/vim-capslock'
+Plug 'scrooloose/nerdtree'
+Plug 'preservim/tagbar'
+Plug 'junegunn/fzf'
 Plug 'tpope/vim-fireplace'
 Plug 'Olical/conjure'
 Plug 'tpope/vim-surround'
@@ -38,70 +103,25 @@ Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'venantius/vim-cljfmt'
 Plug 'tpope/vim-salve'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-dispatch'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'vim-scripts/paredit.vim'
 Plug 'w0rp/ale'
-Plug 'ncm2/float-preview.nvim'
-" "Plug 'jiangmiao/auto-pairs', { 'tag': 'v2.0.0' }
-" Plug 'python-mode/python-mode'
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'vim-syntastic/syntastic'
+Plug 'altercation/vim-colors-solarized'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
-let g:jedi#force_py_version=3
-" Enable Vim Slime with tmux
+let g:coc_global_extensions = ['coc-conjure', 'coc-python']
+
+
+" Make vimslime work with tmux
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
-let g:ycm_autoclose_preview_window_after_completion = 0
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('keyword_patterns', {'clojure': '[\w!$%&*+/:<=>?@\^_~\-\.#]*'})
-set completeopt-=preview
 
-let g:float_preview#docked = 0
-let g:float_preview#max_width = 80
-let g:float_preview#max_height = 40
-" let g:neomake_python_enabled_makers = ['pylint']
-" call neomake#configure#automake('nrwi', 500)
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['pylint']
-
-let g:ale_linters = {
-            \ 'clojure': ['cli-kondo', 'joker']
-            \}
-" Configure shortcut for nerdtree toggle
-nmap <C-n> :NERDTreeToggle<CR>
-
-" Appearance
-syntax enable
-syntax on
-set noswapfile
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-" set background=dark
-" colorscheme gruvbox
-" autocmd VimEnter * colorscheme molokai
-autocmd VimEnter * colorscheme badwolf
-" let g:python_space_error_highlight=0
-" let g:toggleHighlightWhitespace=0
-" let g:go_highlight_trailing_whitespace_error=0
-" let g:pymode_syntax_space_errors=0
-"
-"make kj do esc"
-" inoremap kj <Esc>
-" KJ
+colorscheme PaperColor
+set background=dark
+let g:airline_theme='papercolor'
