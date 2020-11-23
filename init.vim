@@ -13,6 +13,9 @@ filetype indent plugin on
 " Enable syntax highlighting
 syntax on
 
+" Show line numbers
+set number
+
 "------------------------------------------------------------
 " Must have options {{{1
 "
@@ -23,7 +26,7 @@ set hidden
 
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
-set cmdheight=2
+set cmdheight=1
 
 set previewheight=4
 
@@ -92,6 +95,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'elzr/vim-json'
 Plug 'plasticboy/vim-markdown'
 Plug 'jpalardy/vim-slime'
+Plug 'sillybun/vim-repl'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
 Plug 'preservim/tagbar'
@@ -108,9 +112,12 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 Plug 'vim-syntastic/syntastic'
 Plug 'altercation/vim-colors-solarized'
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'gruvbox-material/vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'tomasr/molokai'
 Plug 'morhetz/gruvbox'
+" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
@@ -122,6 +129,11 @@ let g:coc_global_extensions = ['coc-conjure', 'coc-python']
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
 
-colorscheme PaperColor
-set background=dark
+set background=light
 let g:airline_theme='papercolor'
+colorscheme PaperColor
+
+" let g:gruvbox_contrast_light='hard'
+" let g:airline_theme='papercolor'
+" set background=light
+" colorscheme gruvbox
