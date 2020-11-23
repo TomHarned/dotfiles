@@ -1,0 +1,25 @@
+source "gpg -dq ~/.mutt/passwords.gpg |"
+set ssl_force_tls = yes
+set abort_nosubject = no
+set mail_check = 60
+set timeout = 10
+set sort = "reverse-date-received"
+set signature = "~/.mutt/signature"
+set copy = no
+set from = "thomas.harned@gmail.com"
+set realname = "Tom Harned"
+
+
+# Imap settings
+set imap_user = "thomas.harned@gmail.com"
+# Smtp settings
+set smtp_url = "smtps://thomas.harned@smtp.gmail.com"
+
+# Remote gmail folders
+set folder = "imaps://imap.gmail.com/"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/Trash"
+
+macro pager \cb 'urlscan' 'Follow links with urlview'
