@@ -2,7 +2,8 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
-
+(map! :leader
+      :desc "Open like spacemacs" "SPC" #'counsel-M-x)
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -18,8 +19,8 @@
 ;;   presentations or streaming.
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 36 :weight 'semi-light)
-       doom-variable-pitch-font (font-spec :family "sans" :size 18))
+(setq doom-font (font-spec :family "monospace" :size 16 :weight 'semi-light)
+       doom-variable-pitch-font (font-spec :family "sans" :size 11))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -33,6 +34,9 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
+
+(add-to-list 'load-path "/home/theuser/emacs-libvterm")
+(require 'vterm)
 
 ;; Run crontab using a emacs buffer as editor instead of launching the
 ;; system editor
@@ -76,8 +80,8 @@
   (interactive)
   (pop-to-buffer (process-buffer (get-process "shell")) t))
 
-(define-key sh-mode-map [(control ?j)] 'sh-send-line-or-region-and-step)
-(define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
+;;(define-key sh-mode-map [(control ?j)] 'sh-send-line-or-region-and-step)
+;;(define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
 
 ;; SAME function as above, but for vterm instead of shell
 (defun vt-send-line-or-region (&optional step)
@@ -116,6 +120,21 @@
 (defun vt-switch-to-process-buffer ()
   (interactive)
   (pop-to-buffer (process-buffer (get-process "vterm")) t))
+
+;; use this site to set up gpg
+;; https://rtfm.co.ua/en/linux-gpg-keys-the-pass-passwords-manager-and-passwords-import-from-the-keepass-database/
+;;
+;; Then use the code below to set up irc sign in
+(set-irc-server! "chat.freenode.net"
+                 `(:tls t
+                   :port "6697"
+                   :nick "sand_dull"
+                   :sasl-username ,(+pass-get-user "irc")
+                   :sasl-password (lambda (&rest _))(+pass-get-secret "irc")
+                   :channels ("#monero"
+                              "#monero-community"
+                              "#clojure"
+                              "#emacs")))
 
 ;;TODO: figure out how these work for the shell version
 ;;and then assign keys
