@@ -109,8 +109,6 @@ Plug 'venantius/vim-cljfmt'
 Plug 'tpope/vim-salve'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
-Plug 'vim-syntastic/syntastic'
 Plug 'altercation/vim-colors-solarized'
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'gruvbox-material/vim'
@@ -120,9 +118,18 @@ Plug 'morhetz/gruvbox'
 " Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'dense-analysis/ale', { 'on':  'ALEToggle' }
+" Plug 'neomake/neomake'
+" Plug 'kassio/neoterm'
 call plug#end()
 
 let g:coc_global_extensions = ['coc-conjure', 'coc-python']
+
+" let g:ale_lint_on_text_change = 0
+" let g:ale_lint_on_insert_leave = 0
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_save = 0
+" let g:ale_lint_on_filetype_changed = 0
 
 
 " Make vimslime work with tmux
@@ -132,6 +139,11 @@ let g:slime_paste_file = "$HOME/.slime_paste"
 set background=light
 let g:airline_theme='papercolor'
 colorscheme PaperColor
+
+" remap some keys to avoid chording and hopefully RSI
+nnoremap <space> <C-W>
+tnoremap <Esc> <C-\><C-n>
+
 
 " let g:gruvbox_contrast_light='hard'
 " let g:airline_theme='papercolor'
