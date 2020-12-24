@@ -1,0 +1,8 @@
+
+xfce terminal settings: molokai
+
+vim theme: PaperColor dark background
+
+airline theme: gruvbox or monokai, molokai
+
+tmux settings: orange staus bar and pane line
