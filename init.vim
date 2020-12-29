@@ -1,151 +1,159 @@
-
-"------------------------------------------------------------
-" Features {{{1
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
-set nocompatible
-
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-filetype indent plugin on
-
-" Enable syntax highlighting
-syntax on
-
-" Show line numbers
+" Settings
+set backspace=indent,eol,start 
+" more powerful backspacing
 set number
-
-"------------------------------------------------------------
-" Must have options {{{1
-"
-
-" set this so you don't have to save buffers to change them
-set hidden
-
-
-" Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter> to continue"
-set cmdheight=1
-
-set previewheight=4
-
-"------------------------------------------------------------
-" Indentation options {{{1
-"
-" Indentation settings according to personal preference.
-
-" Indentation settings for using 4 spaces instead of tabs.
-" Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-
-"------------------------------------------------------------
-" Usability options {{{1
-"
-" These are options that users frequently set in their .vimrc. Some of them
-" change Vim's behaviour in ways which deviate from the true Vi way, but
-" which are considered to add usability. Which, if any, of these options to
-" use is very much a personal preference, but they are harmless.
-
-" Use case insensitive search, except when using capital letters
-set ignorecase
-set smartcase
-
-" Allow backspacing over autoindent, line breaks and start of insert action
-set backspace=indent,eol,start
-
-" When opening a new line and no filetype-specific indenting is enabled, keep
-" the same indent as the line you're currently on. Useful for READMEs, etc.
+set tabstop=4
+filetype plugin indent on
 set autoindent
-
-" Stop certain movements from always going to the first character of a line.
-" While this behaviour deviates from that of Vi, it does what most users
-" coming from other editors would expect.
-set nostartofline
-
-" Display the cursor position on the last line of the screen or in the status
-" line of a window
+set shiftwidth=4
+set expandtab
+set smarttab
 set ruler
+set showcmd
+" set cmdheight=4
+set cmdheight=2
+set previewheight=4
+set hidden
+set textwidth=80
 
-" Always display the status line, even if only one window is displayed
-set laststatus=2
-
-" Instead of failing a command because of unsaved changes, instead raise a
-" dialogue asking if you wish to save changed files.
-set confirm
-
-set noswapfile
-
-"------------------------------------------------------------
-" Mappings {{{1
-"
-" Useful mappings
-" TODO: map space in place of CTRL-W
-" 
-
+" This has to be before plugins so that coc and ale can play together
+let g:ale_disable_lsp = 1
+" let g:ale_completion_enabled = 1
 
 " Plugins
 call plug#begin()
-" Git
+
+" git plugins
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'sheerun/vim-polyglot'
-Plug 'elzr/vim-json'
-Plug 'plasticboy/vim-markdown'
-Plug 'jpalardy/vim-slime'
-Plug 'sillybun/vim-repl'
-Plug 'ervandew/supertab'
+
+" show file tree
 Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdcommenter'
 Plug 'preservim/tagbar'
-Plug 'junegunn/fzf'
-Plug 'tpope/vim-fireplace'
+
+" Fuzzy Search
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Colorthemes
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'tomasr/molokai'
+Plug 'sainnhe/sonokai'
+Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
+
+" Nice airline format at bottom of screen
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Slime for vim, send things to different tmux pane
+Plug 'jpalardy/vim-slime'
+
+" Tab completion
+Plug 'ervandew/supertab'
+Plug 'elzr/vim-json'
+Plug 'sheerun/vim-polyglot'
+
+" Clojure Plugins if I ever get around to learning
 Plug 'Olical/conjure'
 Plug 'tpope/vim-surround'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'venantius/vim-cljfmt'
 Plug 'tpope/vim-salve'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'gruvbox-material/vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'tomasr/molokai'
-Plug 'morhetz/gruvbox'
-" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'tpope/vim-fireplace'
+
+" Automatch paired symbols like parens, quotes, etc.
+Plug 'jiangmiao/auto-pairs'
+Plug 'machakann/vim-sandwich'
+
+" Code completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'dense-analysis/ale', { 'on':  'ALEToggle' }
-" Plug 'neomake/neomake'
-" Plug 'kassio/neoterm'
+Plug 'neoclide/coc-tsserver'
+Plug 'weirongxu/coc-explorer'
+
+Plug 'dense-analysis/ale'
+
+" F--ing linting
+Plug 'plasticboy/vim-markdown'
+Plug 'Vimjas/vim-python-pep8-indent'
 call plug#end()
 
-let g:coc_global_extensions = ['coc-conjure', 'coc-python']
+" configure fzf
+nnoremap <silent> <Space>f :FZF <Space>
+nnoremap <silent> <Space>ff :FZF<cr>
+nnoremap <silent> <Space>F :FZF ~<cr>
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5, 'highlight': 'Comment' } }
 
-" let g:ale_lint_on_text_change = 0
-" let g:ale_lint_on_insert_leave = 0
-" let g:ale_lint_on_enter = 0
-" let g:ale_lint_on_save = 0
-" let g:ale_lint_on_filetype_changed = 0
+" Search within files
+nnoremap <silent> <Space>g :Rg<cr>
+
+" Search open buffers
+nnoremap <silent> <Space>b :Buffers<cr>
 
 
-" Make vimslime work with tmux
+" Enable Vim Slime with tmux
 let g:slime_target = "tmux"
 let g:slime_paste_file = "$HOME/.slime_paste"
 
-set background=light
-let g:airline_theme='papercolor'
-colorscheme PaperColor
+let g:coc_user_config = {}
+let g:coc_user_config['coc.preferences.jumpCommand'] = ':SplitIfNotOpen4COC'
+set completeopt+=preview
+let g:float_preview#docked = 1
+let g:float_preview#max_width = 80
+let g:float_preview#max_height = 40
+" let g:markdown_folding = 1
+let g:vim_markdown_folding_disabled = 1
 
-" remap some keys to avoid chording and hopefully RSI
-nnoremap <space> <C-W>
-tnoremap <Esc> <C-\><C-n>
+" call neomake#configure#automake('w')
+set statusline+=%#warningmsg#
+set statusline+=%*
+
+let g:tagbar_ctags_bin="/usr/bin/ctags"
+" let g:coc_node_path="~/bin/node-v14.15.1-linux-x64/bin/node"
 
 
-" let g:gruvbox_contrast_light='hard'
-" let g:airline_theme='papercolor'
-" set background=light
-" colorscheme gruvbox
+let g:ale_linters = {'python': ['autopep8'],'clojure': ['cli-kondo', 'joker'],'markdown': ['markdownlint']}
+" Configure shortcut for nerdtree toggle
+nnoremap <Space>n :NERDTreeToggle<CR>
+
+" Configure shortcut for tagbar toggle
+nnoremap <Space>t :TagbarToggle<CR>
+
+" Remap ctrl-w to space for split nav
+nnoremap <Space> <C-w>
+
+nnoremap <Space> <Tab> :bp<CR>
+
+
+" Appearance
+syntax enable
+syntax on
+" set foldmethod=syntax
+set noswapfile
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" set foldopen -=hor
+
+" set completeopt-=menu,preview
+" set completeopt+=menuone
+let g:coc_user_config = {}
+let g:coc_user_config['coc.preferences.jumpCommand'] = ':SplitIfNotOpen4COC'
+
+" colorscheme
+autocmd VimEnter * colorscheme PaperColor
+autocmd VimEnter * AirlineTheme gruvbox
+set background=dark 
+
+" let g:airline_theme='gruvbox'
+
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tagbar#enabled = 1
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#hunks#enabled=1
+
+
