@@ -1,6 +1,28 @@
 
 * Set up qmk on linux
 
+* make sure to do a git pull and update the qmk build
+
+* you can always re-clone and rebuild from scratch, that might be easier
+
+* UPDATE -- this process has gotten MUCH easier
+
+* create the file in the qmk configurator online
+
+* download it to the appropriate keyboard and folder
+
+* at the top level of the QMK directory run:
+
+qmk compile path/to/your/keyboard/json/file.json (this checks things)
+
+* then run:
+
+qmk flash path/to/your/keyboard/json/file.json
+
+
+
+OLD directions
+
 * Use qmk config to set default keyboard and layout
 
 # Notes
@@ -19,8 +41,5 @@
 
 * run "qmk compile <path to json file>"
 
-* copy the hex file over to the keyboards directory, e.g. handwired/dactyl_manuform/5x5/  (Not sure if this step is necessary)
-
 * Run the following command:
 
-make handwired/dactyl_manuform/5x6:atreus44_rev4:flash
