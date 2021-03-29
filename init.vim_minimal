@@ -1,0 +1,71 @@
+" Settings
+set nocompatible
+set noswapfile
+set number
+" set tabstop=4
+" set shiftwidth=4
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" Finding files
+set path+=**
+
+" Display all matching files when to tab complete
+set wildmenu
+
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+" https://awesomeopensource.com/project/joshdick/onedark.vim?categoryPage=12
+if (empty($TMUX))
+  if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+" Autocomplete using tabs
+function! Tab_Or_Complete()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-N>"
+  else
+    return "\<Tab>"
+  endif
+endfunction
+:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+
+" map leader to Space
+nnoremap <SPACE> <Nop>
+let mapleader = " " 
+
+" Remap some keys
+" make :noh easier
+map <Leader>h :noh<CR>
+map <Leader><Leader> :
+" Remap ctrl-w to space for split nav
+nnoremap <Leader>w <C-w>
+" Remap basic buffer Nav
+nnoremap <Leader>bp :bp<CR>
+nnoremap <Leader>bn :bn<CR>
+nnoremap <Leader>ls :ls<CR>
+" Create a scratch buffer
+nnoremap <Leader>bs :new<CR>
+" Make escape work on neovim terminal
+tnoremap <Esc> <C-\><C-n>
+tnoremap <M-[> <Esc>
+
+" Plugins
+call plug#begin()
+Plug 'jpalardy/vim-slime'
+Plug 'joshdick/onedark.vim'
+call plug#end()
+
+" Theme + Syntax Highlighting
+syntax enable
+colorscheme onedark
+
+" Enable Vim Slime with neovim w/Spacemacs style send
+let g:slime_target = "neovim"
+let g:slime_paste_file = "$HOME/.slime_paste"
+nmap <Leader>ss <Plug>SlimeParagraphSend
+xmap <Leader>ss <Plug>SlimeRegionSend
