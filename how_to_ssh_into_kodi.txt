@@ -1,0 +1,21 @@
+
+user: root
+ip: 192.168.1.22 (double check on router)
+
+password: set this on the kodi device
+
+# Example
+$ scp file.txt username@to_host:/remote/directory/
+
+# For Reals
+
+scp ~/Downloads/repository.sandmann79.plugins-1.0.3-leia.zip root@192.168.1.22:/storage/downloads
+
+# Then
+Add-ons install from zip
+
+# Then
+install from the new repository
+
+
+
