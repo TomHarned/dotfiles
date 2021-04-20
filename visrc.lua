@@ -1,14 +1,11 @@
 -- load standard vis module, providing parts of the Lua API
 require('vis')
+require('plugins/v-slime')
+require('plugins/vis-fzf-open')
 
-plugin_vis_open = require('plugins/vis-fzf-open')
-plugin_vis_open.fzf_path = (
-    "FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g \"\"' fzf"
-)
 
 local plug = require('plugins/vis-plug').init(conf, true)
 
-plugin_vis_open.fzf_args = "-q '!.class ' --height=40%"
 local plugins = {
 	{ url = 'erf/vis-sneak' },
 	{ url = 'erf/vis-highlight', alias = 'hi' },
@@ -24,7 +21,11 @@ vis.events.subscribe(vis.events.INIT, function()
 
 -- Remap C-w to Space-w
 vis:map(vis.modes.NORMAL, "<Space>w", "<C-w>")
-
+vis:map(vis.modes.NORMAL, "<Space>ff", ":fzf<Enter>")
+vis:map(vis.modes.VISUAL, "gq", ":|fmt -w 80<Enter>")
+vis:command('set theme acme')
+--vis:command('set theme base16-grayscale-dark')
+vis:command('set change-256colors on')
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
@@ -33,8 +34,9 @@ vis:command('set number')
 vis:command('set tabwidth 4')
 vis:command('set expandtab on')
 vis:command('set autoindent on')
--- vis:command('set theme base16-eighties')
-vis:command('set theme base16-nord')
+vis:command('set colorcolumn 80')
+
 
 
 end)
+
